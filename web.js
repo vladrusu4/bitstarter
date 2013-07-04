@@ -4,8 +4,14 @@ var express = require('express'),
 	fs = require('fs');
 
 app.get('/', function(request, response) {
-	response.writeHead(200, {'Content-Type': 'text/html'});
+	res.writeHead(200, {'Content-Type': 'text/html'});
 	response.write(fs.readFileSync("./index.html", "utf8").toString());
+	response.end();
+});
+
+app.get('/main.css', function(request, response) {
+	res.writeHead(200, {'Content-Type': 'text/css'});
+	response.write(fs.readFileSync("./main.css", 'utf8').toString());
 	response.end();
 });
 
