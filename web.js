@@ -1,24 +1,22 @@
-var express = require('express');
-var app = express.createServer(express.logger());
+var express = require('express'),
+   app = express.createServer(express.logger()),
+   http = require('http'),
+   fs = require('fs');
 
-var http = require('http');
-var fs = require('fs');
-var index = "index.html";
-
-app.get('/' + index, function(request, response) {
-    var buf = new Buffer(256);
-    var len = buf.write("Hello World from index.html!", 0);
-    fs.readFile(index, "binary", function(err, file) {
-	if(err) {
+app.get('/index.html', function(request, response) {
+    var buf = new Buffer(256),
+      len;
+    len = buf.write(fs.readFileSync("./index.html"), 0);
+	if (len){
+		response.writeHead(200);
+        response.write(file, buf.toString('utf8', 0, len));
+        response.end();
+	} else {
 		response.writeHead(500, {"Content-Type": "text/plain"});
-		response.write(err + "\n");
+		response.write("Error\n");
 		response.end();
 		return;
-	}
-	response.writeHead(200);
-	response.write(file, buf.toString('utf8', 0, len));
-	response.end();
-    });
+	}    
 });
 app.get('/', function(request, response) {
   response.send('Hello World 2!');
