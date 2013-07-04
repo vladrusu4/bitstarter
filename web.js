@@ -6,7 +6,7 @@ var express = require('express'),
 app.get('/', function(request, response) {
 	var buf = new Buffer(256);   
 	var len = buf.write(fs.readFileSync("./index.html", "utf8").toString(), 0);
-	response.writeHead(200);
+//	response.writeHead(200);
 	response.write(file, buf.toString('utf8', 0, len));
 	response.end();
 });
