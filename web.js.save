@@ -1,12 +1,24 @@
 var express = require('express');
-
 var app = express.createServer(express.logger());
 
-app.get('/', function(request, response) {
-fs.writeFile('message.txt', 'Hello Node', function (err) {
-  if (err) throw err;
-  console.log('It\'s saved!');
-});
+var http = require('http');
+var fs = require('fs');
+var index = fs.readFileSync('index.html');
+
+fs.readFile(filename, "binary", function(err, file) {
+      if(err) {        
+        response.writeHead(500, {"Content-Type": "text/plain"});
+        response.write(err + "\n");
+        response.end();
+        return;
+      }
+
+      response.writeHead(200);
+      response.write(file, "binary");
+      response.end();
+    });
+
+xasdapp.get('/', function(request, response) {
   response.send('Hello World 2!');
 });
 
