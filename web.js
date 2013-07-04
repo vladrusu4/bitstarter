@@ -3,11 +3,11 @@ var app = express.createServer(express.logger());
 
 var http = require('http');
 var fs = require('fs');
-var index = "index.html";
+var index = "/index.html";
 
 app.get(index, function(request, response) {
     var buf = new Buffer(256);
-    var len = buf.write("Hello World 2!", 0);
+    var len = buf.write("Hello World from index.html!", 0);
     fs.readFileSync(index, "binary", function(err, file) {
 	if(err) {
 		response.writeHead(500, {"Content-Type": "text/plain"});
