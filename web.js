@@ -1,21 +1,21 @@
-var express = require('express'),
-	app = express.createServer(express.logger()),
-	http = require('http'),
-	fs = require('fs');
+var express = require('express');
+var fs = require('fs');
+var htmlfile = "index.html";
+var cssfile = "css/main.css";
+
+var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-	response.writeHead(200, {'Content-Type': 'text/html'});
-	response.write(fs.readFileSync("./index.html", "utf8").toString());
-	response.end();
+    var html = fs.readFileSync(htmlfile).toString();
+	response.send(html);
 });
 
-app.get('/main.css', function(request, response) {
-	response.writeHead(200, {'Content-Type': 'text/css'});
-	response.write(fs.readFileSync("./main.css", 'utf8').toString());
-	response.end();
+app.get('/css/main.css', function(request, response) {
+    var css = fs.readFileSync(cssfile).toString();
+    response.send(css);
 });
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8080;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
